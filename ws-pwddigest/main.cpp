@@ -542,17 +542,18 @@ string getNonce ()
     char shArray [16];
     
     timespec ts = { 0, 0};
-    // clock_gettime(CLOCK_MONOTONIC, &ts); // Works on FreeBSD
+    //clock_gettime(CLOCK_MONOTONIC, &ts); // Works on FreeBSD
     clock_gettime(CLOCK_REALTIME, &ts); // Works on Linux
     
     srand ((unsigned int) (time (NULL) * (ts.tv_sec & ts.tv_nsec)));
     
     int nRand = 0;
+    double nRndFactor;
     for (size_t nCount=0; nCount < (sizeof (shArray) / sizeof (char)); nCount++)
     {
         //nRand++;
         nRand = rand();
-        double nRndFactor = (double) nRand / RAND_MAX;
+        nRndFactor = (double) nRand / RAND_MAX;
         
         shArray [nCount] = (int) ((double) nRndFactor * 256);
         
